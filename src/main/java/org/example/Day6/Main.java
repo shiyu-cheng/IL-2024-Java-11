@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *          if the state is not NEW, then given an exception
  * 3:run method will execute your code immediately, whereas start method will wait CPU resources to start
  *
- **** volatile :
+ **** volatile : for variables, not method
  * 1: make different thread can communicate with each other
  *
  * 2: prevent reordering

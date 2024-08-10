@@ -1,16 +1,24 @@
 package org.example.Day3;
 
+import java.math.BigInteger;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * Java 8 new features
  *  interface vs functional interface
  *
- *  functional interface has only method and it has functinalInterface annotation
+ *  functional interface has only 1 abstract method and it has functinalInterface annotation
  *
- *  runnale, callable, comparator, consumer, Function class (a method), predicate, supplier
- *
+ *  runnable, callable, comparator, consumer, Function class (a method), predicate, supplier
+ * Runnable: Represents a task with no result and no arguments. Used for executing code asynchronously.
+ * Callable<V>: Similar to Runnable, but can return a result and throw checked exceptions.
+ * Comparator<T>: Used for comparing two objects of type T and determining their order.
+ * Consumer<T>: Represents an operation that takes an argument of type T and returns no result.
+ * Function<T, R>: Represents a function that takes an argument of type T and returns a result of type R.
+ * Predicate<T>: Represents a boolean-valued function of one argument, used for testing conditions.
+ * Supplier<T>: Represents a supplier of results, which provides a result of type T without taking any arguments.
  *
  * lambda expression: it is a function/ method without name -> anonymous function
  *
@@ -216,6 +224,8 @@ public class DayThree {
         // will return 2 users List<User>  user =  getUser(); user.size() =2  -> user1, null
         // send an email to all user ->
 
+        Function<String, BigInteger> number = BigInteger::new;
+ *      System.out.print(number.apply("1232345234523452345234523452345"));
 
 
 

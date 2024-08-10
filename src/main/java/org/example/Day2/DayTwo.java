@@ -50,8 +50,8 @@ import java.util.*;
  *
  * Static vs non static
  *
- * static belongs to class itself, not an obeject
- * non static method cann't be called in static method
+ * static belongs to class itself, not an object
+ * non static method can't be called in static method
  *
  *
  *

@@ -13,9 +13,12 @@ package org.example.Day5;
  *
  *      ***classLoader: will load .class file into your JVM
  *      ***runtime data areas: memory -> bytecode, objects, local variables, return values...
+ *                           :handle the data and memory needs of the application as it runs
  *      ***execution engine: executing your bytecode: .class file. -> also handle memory management and GC
  *
  *      suc component of runtime areas:
+ *      Owned by thread: stack
+ *      shared: method area and heap
  *
  *
  *
@@ -24,11 +27,11 @@ package org.example.Day5;
  *          this area is now shared,
  *          Error: stackOverFlowError:
  *
- *      2: memory area
- *          in memory ares, we could find: method data, .class file, method definitions, constant, static variables.
+ *      2: method area
+ *          in method ares, we could find: method data, .class file, method definitions, constant, static variables.
  *          this area is shared, which means other thread can access.
  *
- *      ***3: heap
+ *      ***3: heap: Stores all objects and class instances
  *          three components you need to know
  *          1: eden space(young generation): this place is where you need to store new objects.
  *          2:survivor space (young generation): S0, S1 -> store live objects after a GC
@@ -37,6 +40,8 @@ package org.example.Day5;
  *
  *
  * how can we define a live object?
+ * is currently reachable and in use by the application.
+ * In other words, it is an object that is still referenced by some part of the program and is not eligible for GC.
  * the referencing counting method:
  *  Object A=  new Object
  *  Object B = new Object
@@ -46,9 +51,11 @@ package org.example.Day5;
  *
  *
  *  ***The GC roots method
+ *  GC roots are a set of references from which all reachable objects are traced.
+ *  Anything that is not reachable from GC roots is considered garbage and can be collected.
  *   it is an object in java:
  *      local variable:
- *      static varible
+ *      static variable
  *      thread stack
  *      classes, and class loaders
  *      /./..
@@ -61,7 +68,7 @@ package org.example.Day5;
  *
  * 2:mark-sweep-compact algorithm
  *
- * ***CMS: concurrent mark and sweep -> minimizing # of STW
+ * ***CMS: concurrent mark and sweep -> minimizing # of STW  is a mark-sweep approach
  *  1:initial mark(STW)
  *      identify the gc roots set
  *  2: concurrent mark:(No STW)
@@ -76,7 +83,7 @@ package org.example.Day5;
  *
  *
  *
- * ***G1
+ * ***G1   G1 divides the heap into regions. G1 performs compaction by moving live objects from regions with high garbage content to other regions
  *
  * 1: initial mark: mark the live object in the old generation -> this phase is done concurrently with the application threads.
  *      you have minimal impact on app performance
@@ -86,9 +93,10 @@ package org.example.Day5;
  *  mark any objects that may have been modified since initial marking phase -> STW
  *
  *  4:concurrent clean up -> no STW
+ * decide which regions will be collected.
  *
  *  5:evacuation
- *      to move live objects from one region to another.-> improve overall heap utilization
+ *      to move live objects from one region (mostly with high garbage) to another.-> free up space -> improve overall heap utilization
  *
  *
  * ...
@@ -112,7 +120,7 @@ package org.example.Day5;
  *
  * Runnable vs Callable
  * runnable does not return a value whereas callable has a return
- * runnable does throw an exception, whereas callable has an expcetion
+ * runnable doesn't throw an exception, whereas callable has an exception
  *
  * **what are thread states you know
  *
